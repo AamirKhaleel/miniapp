@@ -13,9 +13,14 @@
 
 Route::get('/', function () {
     //return view('welcome');
-    echo "hello laravel";
+    echo "Laravel";
 });
 Route::get('/hello', function () {
+    //return view('welcome');
+    echo "<h1>bulaga</h1>";
+});
+
+Route::get('/', function () {
     //return view('welcome');
     echo "<h1>bulaga</h1>";
 });
