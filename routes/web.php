@@ -15,12 +15,4 @@ Route::get('/', function () {
     //return view('welcome');
     echo "Laravel";
 });
-Route::get('/hello', function () {
-    //return view('welcome');
-    echo "<h1>bulaga</h1>";
-});
-
-Route::get('/', function () {
-    //return view('welcome');
-    echo "<h1>bulaga</h1>";
-});
+Route::resource('artists','ArtistController');

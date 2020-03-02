@@ -14,7 +14,8 @@ class ArtistController extends Controller
      */
     public function index()
     {
-        //
+        $artists = Artist::latest()->paginate(5);
+        return view('artists.index', compact('artists'))->with('i',(request()->input('page',1)-1)*5);
     }
 
     /**
@@ -24,7 +25,7 @@ class ArtistController extends Controller
      */
     public function create()
     {
-        //
+        return view('artists.create');
     }
 
     /**
@@ -35,7 +36,15 @@ class ArtistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+        Artist::create($request->all());
+
+        return redirect()->route('artists.index')
+                         ->with ('success','Artist created Successfully!');
     }
 
     /**
@@ -46,7 +55,7 @@ class ArtistController extends Controller
      */
     public function show(Artist $artist)
     {
-        //
+        return view('artists.show', compact('artist'));
     }
 
     /**
@@ -57,7 +66,7 @@ class ArtistController extends Controller
      */
     public function edit(Artist $artist)
     {
-        //
+        return view('artists.edit', compact('artist'));
     }
 
     /**
@@ -69,7 +78,15 @@ class ArtistController extends Controller
      */
     public function update(Request $request, Artist $artist)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required'
+        ]);
+
+       $artist->update($request->all());
+
+        return redirect()->route('artists.index')
+                         ->with ('success','Artist updated Successfully!');
     }
 
     /**
@@ -80,6 +97,9 @@ class ArtistController extends Controller
      */
     public function destroy(Artist $artist)
     {
-        //
+        $artist->delete();
+
+        return redirect()->route('artists.index')
+                        ->with ('success','Artist deleted Successfully!');
     }
 }
